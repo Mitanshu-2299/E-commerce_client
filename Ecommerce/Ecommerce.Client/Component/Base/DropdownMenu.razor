@@ -1,0 +1,30 @@
+﻿<div class="dropdown" @onclick="ToggleMenu" tabindex="0" @onblur="CloseMenu">
+    <button class="dropdown-btn">@ButtonText</button>
+    @if (IsOpen)
+    {
+        <ul class="dropdown-menu">
+            @foreach (var item in Items)
+            {
+                <li @onclick="@(() => OnSelectItem.InvokeAsync(item))">@item</li>
+            }
+        </ul>
+    }
+</div>
+
+@code {
+    [Parameter] public List<string> Items { get; set; } = new List<string>();
+    [Parameter] public string ButtonText { get; set; } = "Select";
+    [Parameter] public EventCallback<string> OnSelectItem { get; set; }
+
+    private bool IsOpen { get; set; } = false;
+
+    private void ToggleMenu()
+    {
+        IsOpen = !IsOpen;
+    }
+
+    private void CloseMenu()
+    {
+        IsOpen = false;
+    }
+}

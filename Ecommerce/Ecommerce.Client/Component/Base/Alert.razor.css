@@ -1,0 +1,35 @@
+﻿.alert {
+    padding: 15px 20px;
+    border-radius: 4px;
+    margin: 10px 0;
+    position: relative;
+    font-size: 1rem;
+    color: #fff;
+}
+
+.alert-info {
+    background-color: #2196f3;
+}
+
+.alert-success {
+    background-color: #4caf50;
+}
+
+.alert-warning {
+    background-color: #ff9800;
+}
+
+.alert-error {
+    background-color: #f44336;
+}
+
+.close-btn {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    color: white;
+    cursor: pointer;
+}

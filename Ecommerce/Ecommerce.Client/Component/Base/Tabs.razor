@@ -1,0 +1,41 @@
+﻿<div class="tabs">
+    <div class="tab-headers">
+        @foreach (var tab in tabItems)
+        {
+            <button class="tab-header @(tab == ActiveTab ? "active" : "")"
+                    @onclick="() => SelectTab(tab)">
+                @tab.Title
+            </button>
+        }
+    </div>
+    <div class="tab-content">
+        @ActiveTab?.ChildContent
+    </div>
+</div>
+
+@code {
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    private List<TabItem> tabItems = new List<TabItem>();
+    private TabItem ActiveTab;
+
+    internal void AddTab(TabItem tab)
+    {
+        tabItems.Add(tab);
+        if (tabItems.Count == 1)
+            ActiveTab = tab;
+
+        StateHasChanged();
+    }
+
+    private void SelectTab(TabItem tab)
+    {
+        ActiveTab = tab;
+    }
+
+    public class TabItem
+    {
+        public string Title { get; set; }
+        public RenderFragment ChildContent { get; set; }
+    }
+}

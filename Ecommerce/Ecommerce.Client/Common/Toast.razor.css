@@ -1,0 +1,36 @@
+﻿.toast {
+    padding: 12px 20px;
+    border-radius: 6px;
+    color: white;
+    margin-bottom: 10px;
+    min-width: 200px;
+    position: relative;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.toast-info {
+    background-color: #2196f3;
+}
+
+.toast-success {
+    background-color: #4caf50;
+}
+
+.toast-warning {
+    background-color: #ff9800;
+}
+
+.toast-error {
+    background-color: #f44336;
+}
+
+.close-btn {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+}

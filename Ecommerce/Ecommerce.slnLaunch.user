@@ -1,0 +1,12 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "Ecommerce.Client\\Ecommerce.Client.csproj",
+        "Action": "Start",
+        "DebugTarget": "Ecommerce.Client"
+      }
+    ]
+  }
+]

@@ -1,0 +1,22 @@
+﻿.icon-btn {
+    background-color: transparent;
+    border: none;
+    color: var(--primary-color, #007bff);
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+    .icon-btn:hover:not(:disabled) {
+        background-color: rgba(0, 123, 255, 0.1);
+    }
+
+    .icon-btn:disabled {
+        color: #cccccc;
+        cursor: not-allowed;
+    }

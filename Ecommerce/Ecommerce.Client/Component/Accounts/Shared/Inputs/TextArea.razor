@@ -1,0 +1,25 @@
+﻿<div class="textarea-wrapper">
+    @if (!string.IsNullOrEmpty(Label))
+    {
+        <label class="textarea-label">@Label</label>
+    }
+    <textarea @bind="Value"
+              placeholder="@Placeholder"
+              rows="@Rows"
+              class="textarea"
+              @oninput="(e) => ValueChanged.InvokeAsync(((ChangeEventArgs)e).Value?.ToString())">
+    </textarea>
+    @if (!string.IsNullOrEmpty(ErrorMessage))
+    {
+        <div class="textarea-error">@ErrorMessage</div>
+    }
+</div>
+
+@code {
+    [Parameter] public string Label { get; set; }
+    [Parameter] public string Placeholder { get; set; }
+    [Parameter] public int Rows { get; set; } = 4;
+    [Parameter] public string ErrorMessage { get; set; }
+    [Parameter] public string Value { get; set; }
+    [Parameter] public EventCallback<string> ValueChanged { get; set; }
+}

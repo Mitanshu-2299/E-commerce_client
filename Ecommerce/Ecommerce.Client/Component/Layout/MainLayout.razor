@@ -1,0 +1,23 @@
+﻿@inherits LayoutComponentBase
+
+<div class="layout-container">
+   
+    <!-- Main content area -->
+    <div class="main-content">
+        <Header></Header>
+        <!-- Top bar -->
+        <div class="top-row">
+            <div class="top-row-left">
+                <h2>Dashboard</h2>
+            </div>
+            <div class="top-row-right">
+                <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+            </div>
+        </div>
+
+        <!-- Page content -->
+        <div class="page-content">
+            @Body
+        </div>
+    </div>
+</div>

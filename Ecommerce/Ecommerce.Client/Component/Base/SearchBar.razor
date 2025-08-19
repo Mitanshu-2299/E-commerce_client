@@ -1,0 +1,16 @@
+﻿<div class="search-bar">
+    <input type="text" class="form-control" placeholder="@Placeholder"
+           @bind="SearchText" @bind:event="oninput" />
+</div>
+
+@code {
+    [Parameter] public string Placeholder { get; set; } = "Search...";
+    [Parameter] public EventCallback<string> OnSearchChanged { get; set; }
+
+    private string SearchText { get; set; } = string.Empty;
+
+    private async Task HandleSearchChange()
+    {
+        await OnSearchChanged.InvokeAsync(SearchText);
+    }
+}

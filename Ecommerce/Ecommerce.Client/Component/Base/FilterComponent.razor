@@ -1,0 +1,64 @@
+﻿@* Components/Common/FilterComponent.razor *@
+<div class="filter-container">
+    <div class="filter-title">Filters</div>
+
+    <div class="filter-group">
+        <label>Category</label>
+        <select @bind="SelectedCategory">
+            <option value="">All</option>
+            @foreach (var category in Categories)
+            {
+                <option value="@category">@category</option>
+            }
+        </select>
+    </div>
+
+    <div class="filter-group">
+        <label>Price Range</label>
+        <input type="number" placeholder="Min" @bind="MinPrice" />
+        <input type="number" placeholder="Max" @bind="MaxPrice" />
+    </div>
+
+    <div class="filter-group">
+        <label>Rating</label>
+        <select @bind="SelectedRating">
+            <option value="">Any</option>
+            <option value="1">1★ & above</option>
+            <option value="2">2★ & above</option>
+            <option value="3">3★ & above</option>
+            <option value="4">4★ & above</option>
+        </select>
+    </div>
+
+    <button class="apply-btn" @onclick="ApplyFilters">Apply</button>
+</div>
+
+@code {
+    [Parameter] public EventCallback<FilterOptions> OnFilterChanged { get; set; }
+
+    private List<string> Categories = new() { "Electronics", "Fashion", "Home", "Books" };
+    private string SelectedCategory = "";
+    private decimal? MinPrice;
+    private decimal? MaxPrice;
+    private string SelectedRating = "";
+
+    private async Task ApplyFilters()
+    {
+        var options = new FilterOptions
+        {
+            Category = SelectedCategory,
+            MinPrice = MinPrice,
+            MaxPrice = MaxPrice,
+            Rating = SelectedRating
+        };
+        await OnFilterChanged.InvokeAsync(options);
+    }
+
+    public class FilterOptions
+    {
+        public string Category { get; set; }
+        public decimal? MinPrice { get; set; }
+        public decimal? MaxPrice { get; set; }
+        public string Rating { get; set; }
+    }
+}

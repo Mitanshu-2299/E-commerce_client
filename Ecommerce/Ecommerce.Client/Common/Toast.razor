@@ -1,0 +1,55 @@
+﻿@inject ToastService ToastService
+
+<div class="toast-container" style="position: fixed; top: 20px; right: 20px; z-index: 1050;">
+    @if (IsVisible)
+    {
+        <div class="toast @ToastLevelClass">
+            <span>@Message</span>
+            <button class="close-btn" @onclick="Hide">&times;</button>
+        </div>
+    }
+</div>
+
+@code {
+    private bool IsVisible = false;
+    private string Message = "";
+    private ToastService.ToastLevel CurrentLevel;
+
+    private string ToastLevelClass => CurrentLevel switch
+    {
+        ToastService.ToastLevel.Success => "toast-success",
+        ToastService.ToastLevel.Warning => "toast-warning",
+        ToastService.ToastLevel.Error => "toast-error",
+        _ => "toast-info"
+    };
+
+    protected override void OnInitialized()
+    {
+        ToastService.OnShow += Show;
+        ToastService.OnHide += Hide;
+    }
+
+    private async Task Show(string message, ToastService.ToastLevel level)
+    {
+        Message = message;
+        CurrentLevel = level;
+        IsVisible = true;
+        await InvokeAsync(StateHasChanged);
+
+        // Auto-hide after 3 seconds
+        await Task.Delay(3000);
+        await Hide();
+    }
+
+    private async Task Hide()
+    {
+        IsVisible = false;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        ToastService.OnShow -= Show;
+        ToastService.OnHide -= Hide;
+    }
+}

@@ -1,0 +1,23 @@
+﻿<span class="badge @TypeClass">@Text</span>
+
+@code {
+    [Parameter] public string Text { get; set; }
+    [Parameter] public BadgeType Type { get; set; } = BadgeType.Primary;
+
+    private string TypeClass => Type switch
+    {
+        BadgeType.Primary => "badge-primary",
+        BadgeType.Success => "badge-success",
+        BadgeType.Warning => "badge-warning",
+        BadgeType.Danger => "badge-danger",
+        _ => "badge-primary"
+    };
+
+    public enum BadgeType
+    {
+        Primary,
+        Success,
+        Warning,
+        Danger
+    }
+}

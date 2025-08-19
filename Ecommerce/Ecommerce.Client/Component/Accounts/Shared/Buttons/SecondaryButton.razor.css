@@ -1,0 +1,24 @@
+﻿.secondary-btn {
+    background-color: transparent;
+    color: var(--primary-color, #007bff);
+    border: 2px solid var(--primary-color, #007bff);
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+    .secondary-btn:hover:not(:disabled) {
+        background-color: var(--primary-color, #007bff);
+        color: white;
+    }
+
+    .secondary-btn:disabled {
+        border-color: #cccccc;
+        color: #cccccc;
+        cursor: not-allowed;
+    }

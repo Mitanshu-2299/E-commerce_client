@@ -1,0 +1,39 @@
+﻿@if (Visible)
+{
+    <div class="alert @AlertTypeClass" role="alert">
+        @Message
+        <button type="button" class="close-btn" aria-label="Close" @onclick="Close">
+            &times;
+        </button>
+    </div>
+}
+
+@code {
+    [Parameter] public string Message { get; set; } = "";
+    [Parameter] public AlertType Type { get; set; } = AlertType.Info;
+    [Parameter] public EventCallback OnClose { get; set; }
+    private bool Visible { get; set; } = true;
+
+    private string AlertTypeClass => Type switch
+    {
+        AlertType.Success => "alert-success",
+        AlertType.Warning => "alert-warning",
+        AlertType.Error => "alert-error",
+        _ => "alert-info"
+    };
+
+    private async Task Close()
+    {
+        Visible = false;
+        if (OnClose.HasDelegate)
+            await OnClose.InvokeAsync(null);
+    }
+
+    public enum AlertType
+    {
+        Info,
+        Success,
+        Warning,
+        Error
+    }
+}

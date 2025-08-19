@@ -1,0 +1,30 @@
+﻿.search-bar {
+    max-width: 320px;
+    margin: 0 auto;
+    padding: 6px 0;
+}
+
+    .search-bar input.form-control {
+        width: 100%;
+        padding: 10px 16px;
+        border-radius: 8px;
+        border: 1.5px solid #d1d5db; /* subtle gray */
+        font-size: 1rem;
+        box-sizing: border-box;
+        transition: border-color 0.25s ease, box-shadow 0.25s ease;
+        font-weight: 500;
+        color: #374151; /* dark gray text */
+        background-color: #fff;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05); /* subtle shadow */
+    }
+
+        .search-bar input.form-control::placeholder {
+            color: #9ca3af; /* placeholder medium gray */
+            font-weight: 400;
+        }
+
+        .search-bar input.form-control:focus {
+            border-color: #3b82f6; /* blue highlight */
+            outline: none;
+            box-shadow: 0 0 8px rgba(59, 130, 246, 0.4); /* glowing blue */
+        }

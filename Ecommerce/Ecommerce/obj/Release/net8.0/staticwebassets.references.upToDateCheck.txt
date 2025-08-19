@@ -1,0 +1,1 @@
+E:\EcomBlazorClientCopyRepo\Ecommerce\Ecommerce.Client\obj\Release\net8.0\staticwebassets.build.json

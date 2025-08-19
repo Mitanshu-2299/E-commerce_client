@@ -1,0 +1,116 @@
+﻿@page "/login"
+@using ECommerce.Data.Model
+ @using Microsoft.AspNetCore.Components.Authorization 
+@inject ECommerce.Service.API.AuthService.IAuthService AuthService
+@inject NavigationManager Navigation
+@inject IJSRuntime _jsRuntime
+@inject AuthenticationStateProvider AuthStateProvider 
+
+<div class="container">
+    <div class="login-section">
+        <h2>Welcome Back!</h2>
+
+        <EditForm Model="requestModel" OnValidSubmit="performLogin" FormName="LoginForm">
+            <DataAnnotationsValidator />
+
+
+            <div class="form-group">
+                <label>Email</label>
+                <InputText @bind-Value="requestModel.Email"
+                           type="email"
+                           class="form-control"
+                           placeholder="your@example.com" />
+                <ValidationMessage For="@(() => requestModel.Email)" />
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <InputText @bind-Value="requestModel.Password"
+                           type="password"
+                           class="form-control"
+                           placeholder="Enter your password" />
+                <ValidationMessage For="@(() => requestModel.Password)" />
+            </div>
+
+            <button class="btn sign-in-btn btn-primary"
+                    type="submit"
+                    disabled="@isProcessing">
+                Sign In
+            </button>
+
+            @if (!string.IsNullOrEmpty(loginError))
+            {
+                <div class="alert alert-danger mt-2">@loginError</div>
+            }
+        </EditForm>
+
+        <div class="extra-links mt-3">
+
+            <NavLink href="/forgot-password">Forgot password?</NavLink>
+        </div>
+        <div class="signup-link">
+            Don't have an account? <NavLink href="/signup">Sign Up</NavLink>
+        </div>
+    </div>
+
+    <div class="image-section">
+        <img src="/images/login.jpg" alt="People in a meeting" />
+    </div>
+</div>
+
+@code {
+    private RequestModelDemo requestModel = new RequestModelDemo();
+    private bool isProcessing = false;
+    private string loginError;
+
+    private async Task performLogin()
+    {
+        await _jsRuntime.InvokeVoidAsync("console.log", "this has enterd");
+
+        isProcessing = true;
+        loginError = string.Empty;
+
+        try
+        {
+            var request = new ECommerce.Model.AuthModel.LoginRequest
+            {
+                Email = requestModel.Email,
+                Password = requestModel.Password
+            };
+
+            var response = await AuthService.LoginAsync(request);
+
+            if (response != null && response.StatusCode == 200)
+            {
+                var token = response.Data?.Token ?? string.Empty;
+                if (!string.IsNullOrWhiteSpace(token))
+                {
+
+                    await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "authToken", token);
+
+
+                    if (AuthStateProvider is JwtAuthStateProvider jwtProvider)
+                    {
+                        await jwtProvider.NotifyUserLoggedIn(token);
+                    }
+                }
+
+                // Navigate to dashboard
+                Navigation.NavigateTo("/dashboard", replace: true);
+            }
+            else
+            {
+                loginError = response?.Message ?? "Login failed. Please check your credentials.";
+            }
+
+        }
+        catch (Exception ex)
+        {
+            loginError = $"Login failed: {ex.Message}";
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+}

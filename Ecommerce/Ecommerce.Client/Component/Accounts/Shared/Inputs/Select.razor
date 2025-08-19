@@ -1,0 +1,41 @@
+﻿<div class="select-wrapper">
+    @if (!string.IsNullOrEmpty(Label))
+    {
+        <label class="select-label">@Label</label>
+    }
+
+    <select class="select"
+            @bind="Value"
+            @bind:event="onchange">
+        @if (!string.IsNullOrEmpty(Placeholder))
+        {
+            <option value="">@Placeholder</option>
+        }
+        @foreach (var option in Options)
+        {
+            <option value="@option.Value">@option.Text</option>
+        }
+    </select>
+
+    @if (!string.IsNullOrEmpty(ErrorMessage))
+    {
+        <div class="select-error">@ErrorMessage</div>
+    }
+</div>
+
+@code {
+    [Parameter] public string Label { get; set; }
+    [Parameter] public string Placeholder { get; set; }
+
+    [Parameter] public string Value { get; set; }
+    [Parameter] public EventCallback<string> ValueChanged { get; set; }
+
+    [Parameter] public List<SelectOption> Options { get; set; } = new();
+    [Parameter] public string ErrorMessage { get; set; }
+
+    public class SelectOption
+    {
+        public string Value { get; set; }
+        public string Text { get; set; }
+    }
+}

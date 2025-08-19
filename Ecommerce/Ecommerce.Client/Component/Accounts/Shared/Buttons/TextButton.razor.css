@@ -1,0 +1,21 @@
+﻿.text-btn {
+    background: none;
+    border: none;
+    color: var(--primary-color, #007bff);
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+    .text-btn:hover:not(:disabled) {
+        color: #0056b3;
+        text-decoration: underline;
+    }
+
+    .text-btn:disabled {
+        color: #cccccc;
+        cursor: not-allowed;
+        text-decoration: none;
+    }
